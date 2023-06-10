@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MongoDB 데이터</title>
+    <script>
+        function toggleData() {
+            var list = document.getElementById("data-list");
+            list.classList.toggle("hidden");
+        }
+    </script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>MongoDB 데이터</h1>
+    <button onclick="toggleData()">데이터 토글</button>
+    <ul id="data-list" class="hidden">
+    {% for item in data %}
+        <li>{{ item.TITLE_NM }}{% if item.VLM_NM %} - {{ item.VLM_NM }} 권 {% endif %}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
+
