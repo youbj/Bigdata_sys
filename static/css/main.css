@@ -2217,7 +2217,17 @@ input, select, textarea {
 				}
 
 			}
-
+		.image-container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 300px; /* 이미지 컨테이너의 높이를 조정합니다. 필요에 따라 변경할 수 있습니다. */
+		}
+		
+		.image-container img {
+				max-width: 100%;
+				max-height: 100%;
+		}
 /* List */
 
 	ol {

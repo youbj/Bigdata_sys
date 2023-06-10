@@ -6,7 +6,7 @@
 -->
 <html>
     <head>
-        <title>{{ title }}</title>
+        <title>순위 페이지</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
@@ -16,7 +16,6 @@
 
         <!-- Wrapper -->
             <div id="wrapper">
-
                 <!-- Header -->
                 <!-- Note: The "styleN" class below should match that of the banner element. -->
                     <header id="header" class="alt style2">
@@ -46,10 +45,10 @@
                                 <img src="{{ url_for('static', filename='images/pic07.jpg') }}" alt="" />
                             </span>
                             <header class="major">
-                                <h1>{{ header }}</h1>
+                                <h1>순위(나중에 변경예정)</h1>
                             </header>
                             <div class="content">
-                                <p>{{ content }}</p>
+                                <p>여긴 간단한 설명 보이면 될 듯</p>
                             </div>
                         </div>
                     </section>
@@ -58,12 +57,21 @@
                     <div id="main">
                         <!-- One -->
                             <section id="one">
-                                <div class="inner">
-                                    <header class="major">
-                                        <h2>Sed amet aliquam</h2>
-                                    </header>
-                                    <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna.</p>
-                                </div>
+                                <ul>
+                                    {% for item in data %}
+                                    <li>
+                                        <h3>{{ item.BOOK_TITLE_NM }}</h3>
+                                        <p>Author: {{ item.AUTHR_NM }}</p>
+                                        <p>{{ item.BOOK_INTRCN_CN }}</p>
+                                        <p>Publisher: {{ item.PUBLISHER_NM }}</p>
+                                        <img src="{{ item.BOOK_IMAGE_NM }}" alt="Book Image">
+                                        <p>Rank: {{ item.RANK_CO }}</p>
+                                        <p>발행날자: {{ item.PBLICTE_DE }}</p>
+                                        <p>ANALS_TY_CD: {{item.ANALS_TY_CD}}</p>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                
                             </section>
 
                         <!-- Two -->
