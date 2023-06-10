@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<!--
+    Forty by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+        <noscript><link rel="stylesheet" href="{{ url_for('static', filename='css/noscript.css') }}" /></noscript>
+    </head>
+    <body class="is-preload">
+
+        <!-- Wrapper -->
+            <div id="wrapper">
+
+                <!-- Header -->
+                <!-- Note: The "styleN" class below should match that of the banner element. -->
+                    <header id="header" class="alt style2">
+                        <a href="{{ url_for('index') }}" class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a>
+                        <nav>
+                            <a href="#menu">Menu</a>
+                        </nav>
+                    </header>
+
+                <!-- Menu -->
+                    <nav id="menu">
+                        <ul class="links">
+                            <li><a href="{{ url_for('index') }}">Home</a></li>
+                            <li><a href="{{ url_for('landing') }}">Landing</a></li>
+                            <li><a href="{{ url_for('generic') }}">Generic</a></li>
+                        </ul>
+                        <ul class="actions stacked">
+                            <li><a href="#" class="button primary fit">만든이: 유병주</a></li>
+                        </ul>
+                    </nav>
+
+                <!-- Banner -->
+                <!-- Note: The "styleN" class below should match that of the header element. -->
+                    <section id="banner" class="style2">
+                        <div class="inner">
+                            <span class="image">
+                                <img src="{{ url_for('static', filename='images/pic07.jpg') }}" alt="" />
+                            </span>
+                            <header class="major">
+                                <h1>{{ header }}</h1>
+                            </header>
+                            <div class="content">
+                                <p>{{ content }}</p>
+                            </div>
+                        </div>
+                    </section>
+
+                <!-- Main -->
+                    <div id="main">
+                        <!-- One -->
+                            <section id="one">
+                                <div class="inner">
+                                    <header class="major">
+                                        <h2>Sed amet aliquam</h2>
+                                    </header>
+                                    <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna.</p>
+                                </div>
+                            </section>
+
+                        <!-- Two -->
+                            <section id="two" class="spotlights">
+                                <section>
+                                    <a href="{{ url_for('generic') }}" class="image">
+                                        <img src="{{ url_for('static', filename='images/pic08.jpg') }}" alt="" data-position="center center" />
+                                    </a>
+                                    <div class="content">
+                                        <div class="inner">
+                                            <header class="major">
+                                                <h3>Orci maecenas</h3>
+                                            </header>
+                                            <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus.</p>
+                                            <ul class="actions">
+                                                <li><a href="{{ url_for('generic') }}" class="button">Learn more</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section>
+                                    <a href="{{ url_for('generic') }}" class="image">
+                                        <img src="{{ url_for('static', filename='images/pic09.jpg') }}" alt="" data-position="top center" />
+                                    </a>
+                                    <div class="content">
+                                        <div class="inner">
+                                            <header class="major">
+                                                <h3>Rhoncus magna</h3>
+                                            </header>
+                                            <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus.</p>
+                                            <ul class="actions">
+                                                <li><a href="{{ url_for('generic') }}" class="button">Learn more</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section>
+                                    <a href="{{ url_for('generic') }}" class="image">
+                                        <img src="{{ url_for('static', filename='images/pic10.jpg') }}" alt="" data-position="25% 25%" />
+                                    </a>
+                                    <div class="content">
+                                        <div class="inner">
+                                            <header class="major">
+                                                <h3>Sed nunc ligula</h3>
+                                            </header>
+                                            <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus.</p>
+                                            <ul class="actions">
+                                                <li><a href="{{ url_for('generic') }}" class="button">Learn more</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                            </section>
+
+                        <!-- Three -->
+                            <section id="three">
+                                <div class="inner">
+                                    <header class="major">
+                                        <h2>Massa libero</h2>
+                                    </header>
+                                    <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus amet pharetra et feugiat tempus.</p>
+                                    <ul class="actions">
+                                        <li><a href="{{ url_for('generic') }}" class="button next">Get Started</a></li>
+                                    </ul>
+                                </div>
+                            </section>
+
+                    </div>
+
+                <!-- Footer -->
+                    <footer id="footer">
+                        <div class="inner">
+                            <ul class="icons">
+                                <li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+                                <li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+                                <li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+                                <li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+                                <li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+                            </ul>
+                            <ul class="actions">
+                                <li><a href="#" class="button">Learn More</a></li>
+                            </ul>
+                        </div>
+                    </footer>
+
+            </div>
+
+        <!-- Scripts -->
+            <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/jquery.scrollex.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/jquery.scrolly.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/browser.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/breakpoints.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/util.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    </body>
+</html>
