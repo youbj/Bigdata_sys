@@ -28,19 +28,12 @@ def index():
             "PBLICTE_DE": 1,
             "ANALS_TY_CD": 1
         }
-<<<<<<< HEAD
-        data = list(collection.find(query, projection))
-        print('1')
-        return render_template('index.html', data=data, search_query=search_query)
-    else:
-        data = collection.find()
-        print('2')
-        return render_template('index.html', data=data)
-=======
         print('여기까지오나확인')
         data = list(collection.find(query, projection).sort("RANK_CO", 1).limit(20))
+        print('1')
         return render_template('landing.html', data=data, search_query=search_query)
     else:
+        print('2')  
         query = {
             "AGE_FLAG_NM": "영유아(0~5)",
             "ANALS_TY_CD": 2,
@@ -58,7 +51,6 @@ def index():
         }
         data = list(collection.find(query, projection).sort("RANK_CO", 1).limit(20))
         return render_template('index.html',data=data)
->>>>>>> 0d3a162b1bab5e9b8387708df8f525f7191ad8e0
 
 @app.route('/landing', methods=['GET', 'POST'])
 def landing():
@@ -80,13 +72,9 @@ def landing():
             "PBLICTE_DE": 1,
             "ANALS_TY_CD": 1
         }
-<<<<<<< HEAD
-        print('쿼리성공')
-        data = list(collection.find(query, projection).sort("RANK_CO", 1).limit(2))
-=======
+
         print('여기까지오나확인')
         data = list(collection.find(query, projection).sort("RANK_CO", 1).limit(20))
->>>>>>> 0d3a162b1bab5e9b8387708df8f525f7191ad8e0
         return render_template('landing.html', data=data, search_query=search_query)
     else:
         query = {
