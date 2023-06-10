@@ -69,12 +69,12 @@
                     {% for item in data %}
                     <li>
                         <h3>{{ item.BOOK_TITLE_NM }}</h3>
-                        <p>Author: {{ item.AUTHR_NM }}</p>
-                        <p>{{ item.BOOK_INTRCN_CN }}</p>
-                        <p>Publisher: {{ item.PUBLISHER_NM }}</p>
+                        <p>글쓴이 : {{ item.AUTHR_NM }}</p>
+                        <p>서적소개내용:{{ item.BOOK_INTRCN_CN }}</p>
+                        <p>출판사: {{ item.PUBLISHER_NM }}</p>
                         <img src="{{ item.BOOK_IMAGE_NM }}" alt="Book Image">
-                        <p>Rank: {{ item.RANK_CO }}</p>
-                        <p>발행날자: {{ item.PBLICTE_DE }}</p>
+                        <p>인기순위: {{ item.RANK_CO }}</p>
+                        <p>발행날: {{ item.PBLICTE_DE }}</p>
                         <p>ANALS_TY_CD: {{ item.ANALS_TY_CD }}</p>
                     </li>
                     {% endfor %}

@@ -24,9 +24,11 @@ def index():
             "ANALS_TY_CD": 1
         }
         data = list(collection.find(query, projection))
+        print('1')
         return render_template('index.html', data=data, search_query=search_query)
     else:
         data = collection.find()
+        print('2')
         return render_template('index.html', data=data)
 
 @app.route('/landing', methods=['GET', 'POST'])
@@ -49,7 +51,7 @@ def landing():
             "PBLICTE_DE": 1,
             "ANALS_TY_CD": 1
         }
-        print('여기까지오나확인')
+        print('쿼리성공')
         data = list(collection.find(query, projection).sort("RANK_CO", 1).limit(2))
         return render_template('landing.html', data=data, search_query=search_query)
     # else:
