@@ -20,78 +20,104 @@
 
 <!-- Main -->
 <div id="main">
-
   <!-- One -->
-  <section id="one" class="tiles">
-    <article>
-      <span class="image">
-        <img src="{{ url_for('static', filename='images/pic01.jpg') }}" alt="" />
-      </span>
-      <header class="major">
-        <h3><a href="{{ url_for('landing') }}" class="link">연령별 인기차트</a></h3>
-        <p>연령대에 따른 인기 도서를 추천합니다.</p>
-      </header>
-    </article>
-    <article>
-      <span class="image">
-        <img src="{{ url_for('static', filename='images/pic02.jpg') }}" alt="" />
-      </span>
-      <header class="major">
-        <h3><a href="{{ url_for('landing') }}" class="link">성별 인기차트</a></h3>
-        <p>성별에 따른 인기 도서를 추천합니다.</p>
-      </header>
-    </article>
-    <article>
-      <span class="image">
-        <img src="{{ url_for('static', filename='images/pic03.jpg') }}" alt="" />
-      </span>
-      <header class="major">
-        <h3><a href="{{ url_for('landing') }}" class="link">Magna</a></h3>
-        <p>Lorem etiam nullam</p>
-      </header>
-    </article>
-    <article>
-      <span class="image">
-        <img src="{{ url_for('static', filename='images/pic04.jpg') }}" alt="" />
-      </span>
-      <header class="major">
-        <h3><a href="{{ url_for('landing') }}" class="link">Ipsum</a></h3>
-        <p>Nisl sed aliquam</p>
-      </header>
-    </article>
-    <article>
-      <span class="image">
-        <img src="{{ url_for('static', filename='images/pic05.jpg') }}" alt="" />
-      </span>
-      <header class="major">
-        <h3><a href="{{ url_for('landing') }}" class="link">Consequat</a></h3>
-        <p>Ipsum dolor sit amet</p>
-      </header>
-    </article>
-    <article>
-      <span class="image">
-        <img src="{{ url_for('static', filename='images/pic06.jpg') }}" alt="" />
-      </span>
-      <header class="major">
-        <h3><a href="{{ url_for('landing') }}" class="link">Etiam</a></h3>
-        <p>Feugiat amet tempus</p>
-      </header>
-    </article>
-  </section>
-
-  <!-- Two -->
-  <section id="two">
-    <div class="inner">
-      <header class="major">
-        <h2>Massa libero</h2>
-      </header>
-      <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna sed
-        nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa
-        vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis
-        libero. Mauris aliquet magna magna sed nunc rhoncus amet pharetra et feugiat tempus.</p>
-      <ul class="actions">
-        <li><a href="{{ url_for('landing') }}" class="button next">Get Started</a></li>
+  <section id="one">
+      <form method="POST" action="{{ url_for('landing') }}">
+          <input type="text" name="search_query" placeholder="Enter your search query">
+          <input type="submit" value="Search">
+      </form>
+      <ul>
+          {% for item in data %}
+          <li>
+              <h3>{{ item.BOOK_TITLE_NM }}</h3>
+              <p>Author: {{ item.AUTHR_NM }}</p>
+              <p>{{ item.BOOK_INTRCN_CN }}</p>
+              <p>Publisher: {{ item.PUBLISHER_NM }}</p>
+              <img src="{{ item.BOOK_IMAGE_NM }}" alt="Book Image">
+              <p>Rank: {{ item.RANK_CO }}</p>
+              <p>발행날자: {{ item.PBLICTE_DE }}</p>
+              <p>ANALS_TY_CD: {{ item.ANALS_TY_CD }}</p>
+          </li>
+          {% endfor %}
       </ul>
-    </div>
   </section>
+</div>
+<!-- Two -->
+<section id="two" class="spotlights">
+  <section>
+      <a href="{{ url_for('generic') }}" class="image">
+          <img src="{{ url_for('static', filename='images/pic08.jpg') }}" alt=""
+              data-position="center center" />
+      </a>
+      <div class="content">
+          <div class="inner">
+              <header class="major">
+                  <h3>Orci maecenas</h3>
+              </header>
+              <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus
+                  condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna
+                  pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et
+                  sagittis tempus.</p>
+              <ul class="actions">
+                  <li><a href="{{ url_for('generic') }}" class="button">Learn more</a></li>
+              </ul>
+          </div>
+      </div>
+  </section>
+  <section>
+      <a href="{{ url_for('generic') }}" class="image">
+          <img src="{{ url_for('static', filename='images/pic09.jpg') }}" alt="" data-position="top center" />
+      </a>
+      <div class="content">
+          <div class="inner">
+              <header class="major">
+                  <h3>Rhoncus magna</h3>
+              </header>
+              <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus
+                  condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna
+                  pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et
+                  sagittis tempus.</p>
+              <ul class="actions">
+                  <li><a href="{{ url_for('generic') }}" class="button">Learn more</a></li>
+              </ul>
+          </div>
+      </div>
+  </section>
+  <section>
+      <a href="{{ url_for('generic') }}" class="image">
+          <img src="{{ url_for('static', filename='images/pic10.jpg') }}" alt="" data-position="25% 25%" />
+      </a>
+      <div class="content">
+          <div class="inner">
+              <header class="major">
+                  <h3>Sed nunc ligula</h3>
+              </header>
+              <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus
+                  condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna
+                  pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et
+                  sagittis tempus.</p>
+              <ul class="actions">
+                  <li><a href="{{ url_for('generic') }}" class="button">Learn more</a></li>
+              </ul>
+          </div>
+      </div>
+  </section>
+</section>
+
+<!-- Three -->
+<section id="three">
+  <div class="inner">
+      <header class="major">
+          <h2>Massa libero</h2>
+      </header>
+      <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna
+          sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas
+          laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat
+          tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus amet pharetra et
+          feugiat tempus.</p>
+      <ul class="actions">
+          <li><a href="{{ url_for('generic') }}" class="button next">Get Started</a></li>
+      </ul>
+  </div>
+</section>
 {% endblock %}
