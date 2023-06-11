@@ -59,7 +59,8 @@ def landing():
         "RANK_CO": 1,
         "AREA_NM": 1
     }
-    data = list(collection.find(query, projection).limit(10))
+    data = list(collection.find(query, projection)[:20])
+
 
     # sections 리스트 동적 생성
     title_set = set()
@@ -104,23 +105,99 @@ def generic():
     pipeline = [
         { '$match' : { 'ANALS_TY_CD_NM' : "지역별", 'AREA_NM': "충북", 'ANALS_PD_CD': "p2"}},
         { '$sort' : { 'RANK_CO' : 1 } },
-        { '$limit' : 10 },
-        { '$project' : {'_id': 0, 'RANK_CO' : 1, 'BOOK_TITLE_NM' : 1, 'BOOK_IMAGE_NM' : 1}}
+        { '$limit' : 100 },
+        { '$project' : {'_id': 0, 'RANK_CO' : 1, 'BOOK_TITLE_NM' : 1, 'PUBLISHER_NM' : 1, 'BOOK_INTRCN_CN' : 1, 'BOOK_IMAGE_NM' : 1}}
     ]
-    result = list(collection.aggregate(pipeline))
-    print(1)
-    print(result)
+    result = list(collection.aggregate(pipeline).limit(10))
+    
     return render_template('generic.html', data=result)
 
 
-@app.route('/mzman')
+
+@app.route('/mzman', methods=['GET', 'POST'])
 def mzman():
-    data = collection.find({
-        "AGE_FLAG_NM": "20대",
-        "AREA_NM": "서울",
-        "SEXDSTN_FLAG_NM": "남성"
-    }).limit(100)
-    return render_template('mzman.html', data=data)
+    pipeline = [
+        {
+            '$match': {
+                'ANALS_PD_CD': "p2",
+                'SEXDSTN_FLAG_NM': "남성",
+                'ANALS_TY_CD_NM': "연령 및 성별",
+                '$or': [
+                    {'AGE_FLAG_NM': "20대"},
+                    {'AGE_FLAG_NM': "30대"}
+                ]
+            }
+        },
+        { '$sort': { 'RANK_CO': 1 } },
+        { '$limit': 40 },
+        { '$project' : {'_id': 0, 'RANK_CO' : 1, 'BOOK_TITLE_NM' : 1, 'PUBLISHER_NM' : 1, 'BOOK_INTRCN_CN' : 1, 'BOOK_IMAGE_NM' : 1}}
+    ]
+
+    result = list(collection.aggregate(pipeline))
+
+    # 중복 제거를 위한 세트(set) 생성
+    title_set = set()
+    unique_result = []
+
+    for item in result:
+        title = item.get('BOOK_TITLE_NM')
+        if title not in title_set:
+            unique_result.append(item)
+            title_set.add(title)
+
+    return render_template('generic.html', data=unique_result)
+
+@app.route('/mzwoman')
+def mzwoman():
+    pipeline = [
+        {
+            '$match': {
+                'ANALS_PD_CD': "p2",
+                'SEXDSTN_FLAG_NM': "여성",
+                '$or': [
+                    {'AGE_FLAG_NM': "20대"},
+                    {'AGE_FLAG_NM': "30대"},
+                    {'ANALS_TY_CD_NM': "연령 및 성별"},
+                    {'ANALS_TY_CD_NM': "지역별"},
+                    {'AREA_NM': "인천"},
+                    {'AREA_NM': "경기"},
+                    {'AREA_NM': "서울"}
+                ]
+            }
+        },
+        {
+            '$sort': {'RANK_CO': 1}
+        },
+        {
+            '$limit': 40
+        },
+        {
+            '$project': {
+                '_id': 0,
+                'RANK_CO': 1,
+                'BOOK_TITLE_NM': 1,
+                'PUBLISHER_NM': 1,
+                'BOOK_INTRCN_CN': 1,
+                'BOOK_IMAGE_NM': 1
+            }
+        }
+    ]
+
+
+    result = list(collection.aggregate(pipeline))
+
+    # 중복 제거를 위한 세트(set) 생성
+    title_set = set()
+    unique_result = []
+
+    for item in result:
+        title = item.get('BOOK_TITLE_NM')
+        if title not in title_set:
+            unique_result.append(item)
+            title_set.add(title)
+
+    return render_template('generic.html', data=unique_result)
+
 
 if __name__ == '__main__':
     app.run()
