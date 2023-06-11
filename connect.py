@@ -18,7 +18,7 @@ def landing():
     anals_pd_cd_nm = request.args.get('anals_pd_cd_nm', '')
     age_flag_nm = request.args.get('age_flag_nm', '')
     sexdstn_flag_nm = request.args.get('sexdstn_flag_nm', '')
-
+    area_nm_falg_nm=request.args.get('area_nm_falg_nm', '')
     query = {
         "BOOK_TITLE_NM": {"$regex": search_keyword, "$options": "i"}
     }
@@ -32,6 +32,9 @@ def landing():
     if sexdstn_flag_nm:
         query["SEXDSTN_FLAG_NM"] = sexdstn_flag_nm
 
+    if area_nm_falg_nm:
+        query["AREA_NM"] =area_nm_falg_nm
+
     sort_key = None  # 초기값 설정
 
     # 하나의 레이블만 선택되었을 때 정렬을 수행할 필드 선택
@@ -41,6 +44,9 @@ def landing():
         sort_key = "AGE_FLAG_NM"
     elif sexdstn_flag_nm and not (anals_pd_cd_nm or age_flag_nm):
         sort_key = "SEXDSTN_FLAG_NM"
+    elif area_nm_falg_nm and not (anals_pd_cd_nm or age_flag_nm):
+        sort_key = "AREA_NM"
+
 
     projection = {
         "BOOK_TITLE_NM": 1,
@@ -49,6 +55,7 @@ def landing():
         "PUBLISHER_NM": 1,
         "BOOK_IMAGE_NM": 1,
         "RANK_CO": 1,
+        "AREA_NM": 1
     }
     data = list(collection.find(query, projection).limit(10))
 
@@ -62,7 +69,8 @@ def landing():
             'description': item.get('BOOK_INTRCN_CN', 'No Description'),
             'rank' : item.get('RANK_CO','No RANK'),
             'authr' : item.get('AUTHR_NM','No RANK'),
-            'publi' : item.get('PUBLISHER_NM','No RANK')
+            'publi' : item.get('PUBLISHER_NM','No RANK'),
+            'area' : item.get('AREA_NM',' ')
         }
         sections.append(section)
 
@@ -78,6 +86,11 @@ def landing():
 def generic():
     data = collection.find_one({})
     return render_template('generic.html',data=data)
+
+@app.route('/mzman')
+def mzman():
+    data = collection.find_one({})
+    return render_template('mzman.html',data=data)
 
 if __name__ == '__main__':
     app.run()

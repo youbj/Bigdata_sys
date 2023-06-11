@@ -35,6 +35,7 @@
                 <li><a href="{{ url_for('index') }}">Home</a></li>
                 <li><a href="{{ url_for('landing') }}">Landing</a></li>
                 <li><a href="{{ url_for('generic') }}">Generic</a></li>
+                <li><a href="{{ url_for('mzman') }}">mzman</a></li>
             </ul>
         </nav>
 
@@ -71,8 +72,9 @@
                     <header class="major">
                       <h3>{{ section.rank or '-' }} 등  {{ section.title or 'No Title' }}</h3>
                     </header>
-                    <p>작가: {{ section.authr or '-' }}  출판사: {{ section.publi or 'No Title' }}</p>
-                    <p>{{ section.description or 'No Description' }}</p>
+                    <p>작가: {{ section.authr or '-' }}  , 출판사: {{ section.publi or 'No Title' }}</p>
+                    <p>{{ section.description or 'No Description' }}</p>                    
+                    <p>{{ section.area or 'No Description' }}</p>
                     <ul class="actions">
                       <li><a href="{{ section.url }}" class="button">자세히 보기</a></li>
                     </ul>
@@ -109,7 +111,7 @@
                 <li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
             </ul>
             <ul class="actions">
-                <li><a href="#" class="button">Learn More</a></li>
+                <li><a href="#" class="button">Learn More4</a></li>
             </ul>
         </div>
     </footer>
