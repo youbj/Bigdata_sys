@@ -20,7 +20,7 @@ def landing():
     anals_pd_cd_nm = request.args.get('anals_pd_cd_nm', '')
     age_flag_nm = request.args.get('age_flag_nm', '')
     sexdstn_flag_nm = request.args.get('sexdstn_flag_nm', '')
-    area_nm_falg_nm=request.args.get('area_nm_falg_nm', '')
+    area_nm_flag_nm=request.args.get('area_nm_flag_nm', '')
     
     query = {
         "BOOK_TITLE_NM": {"$regex": search_keyword, "$options": "i"}
@@ -35,8 +35,8 @@ def landing():
     if sexdstn_flag_nm:
         query["SEXDSTN_FLAG_NM"] = sexdstn_flag_nm
         
-    if area_nm_falg_nm:
-        query["AREA_NM"] =area_nm_falg_nm
+    if area_nm_flag_nm:
+        query["AREA_NM"] =area_nm_flag_nm
 
     sort_key = None  # 초기값 설정
 
@@ -47,7 +47,7 @@ def landing():
         sort_key = "AGE_FLAG_NM"
     elif sexdstn_flag_nm and not (anals_pd_cd_nm or age_flag_nm):
         sort_key = "SEXDSTN_FLAG_NM"
-    elif area_nm_falg_nm and not (anals_pd_cd_nm or age_flag_nm):
+    elif area_nm_flag_nm and not (anals_pd_cd_nm or age_flag_nm):
         sort_key = "AREA_NM"
 
     projection = {
@@ -87,6 +87,7 @@ def landing():
                 'rank': item.get('RANK_CO', 'No RANK'),
                 'authr': item.get('AUTHR_NM', 'No Authr'),
                 'publi': item.get('PUBLISHER_NM', 'No publi'),
+                'area': item.get('AREA_NM', ' ') #여기를 빠뜨려놨음. 그래서 안떴음ㅋ 
             }
 
         title = section.get('title')
