@@ -6,7 +6,7 @@
 -->
 <html>
     <head>
-        <title>상세페이지</title>
+        <title>추가페이지</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
@@ -19,7 +19,7 @@
 
                 <!-- Header -->
                     <header id="header">
-                        <a href="{{ url_for('index') }}" class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a>
+                        <a href="{{ url_for('index') }}" class="logo"><strong>BOOK</strong> <span>recommendation</span></a>
                         <nav>
                             <a href="#menu">Menu</a>
                         </nav>
@@ -31,35 +31,48 @@
                             <li><a href="{{ url_for('index') }}">Home</a></li>
                             <li><a href="{{ url_for('landing') }}">Landing</a></li>
                             <li><a href="{{ url_for('generic') }}">Generic</a></li>
-                            <li><a href="{{ url_for('mzman') }}">mzman</a></li>
                         </ul>
                         <ul class="actions stacked">
                             <li><a href="#" class="button primary fit">Team: 14조</a></li>
                         </ul>
                     </nav>
+                        <!-- Banner -->
+                <!-- Note: The "styleN" class below should match that of the header element. -->
+                <section id="banner" class="style2">
+                    <div class="inner">
+                        <span class="image">
+                            <img src="{{ url_for('static', filename='images/pic07.jpg') }}" alt="" />
+                        </span>
+                        <header class="major">
+                            <h1>도서 대출 순위</h1>
+                        </header>
+                        <div class="content">
+                            <p>책을 읽기 어려우시다면 인기있는 책부터 도전해보시는게 어떨까요?</p>
+                        </div>
+                    </div>
+                </section>
 
                 <!-- Main -->
                     <div id="main" class="alt">
 
                         <!-- One -->
+                        {% for item in data %}
                             <section id="one">
                                 <div class="inner">
                                     <header class="major">
-                                        <h1>{{ data['BOOK_TITLE_NM'] }}</h1>
+                                        <h1>{{ item['BOOK_TITLE_NM'] }}</h1>
                                     </header>
                                     <div class="image-container">
-                                        <img src="{{ data['BOOK_IMAGE_NM'] }}" alt="Book Image" height=300px>
+                                        <img src="{{ item['BOOK_IMAGE_NM'] }}" alt="Book Image" height=300px>
                                     </div>
                                     <div class="book-details">
-                                        <h3>{{ data['AUTHR_NM'] }}</h3>
-                                        <p>요약:{{ data['BOOK_INTRCN_CN'] }}</p>
-                                        <p>출판사: {{ data['PUBLISHER_NM'] }}</p>
-
+                                        <h3>{{ item['AUTHR_NM'] }}</h3>
+                                        <p>요약: {{ item['BOOK_INTRCN_CN'] }}</p>
+                                        <p>출판사: {{ item['PUBLISHER_NM'] }}</p>
                                     </div>
-                                    
-                                    
                                 </div>
                             </section>
+                        {% endfor %}
 
                     </div>
 

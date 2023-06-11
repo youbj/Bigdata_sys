@@ -64,7 +64,7 @@
                   {% if section.image %}
                     <img src="{{ section.image }}" alt="" data-position="center center" style="max-width: 250px; max-height: 500px;" />
                   {% else %}
-                    <img src="default_image.jpg" alt="Default Image" data-position="center center" style="max-width: 250px; max-height: 500px;" />
+                    <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Default Image" data-position="center center" style="max-width: 250px; max-height: 500px;" />
                   {% endif %}
                 </a>
                 <div class="content">
@@ -72,9 +72,9 @@
                     <header class="major">
                       <h3>{{ section.rank or '-' }} 등  {{ section.title or 'No Title' }}</h3>
                     </header>
-                    <p>작가: {{ section.authr or '-' }}  , 출판사: {{ section.publi or 'No Title' }}</p>
-                    <p>{{ section.description or 'No Description' }}</p>                    
-                    <p>{{ section.area or 'No Description' }}</p>
+                    <p>작가: {{ section.authr or ' - ' }} , 출판사: {{ section.publi or 'No Title' }}</p>
+                    <p>{{ section.description or 'No Description' }}</p>
+                    <p>지역: {{ section.area or ' - ' }}</p>
                     <ul class="actions">
                       <li><a href="{{ section.url }}" class="button">자세히 보기</a></li>
                     </ul>
@@ -111,7 +111,7 @@
                 <li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
             </ul>
             <ul class="actions">
-                <li><a href="#" class="button">Learn More4</a></li>
+                <li><a href="#" class="button">Learn More</a></li>
             </ul>
         </div>
     </footer>
