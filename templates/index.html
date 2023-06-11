@@ -56,6 +56,23 @@
             <option value="여성">여성</option>
         </select>
         <br>
+        <label for="AREA_NM">지역:</label>
+        <select id="AREA_NM" name="AREA_NM">
+          <option value="">전체</option>
+            <option value="서울">서울</option>
+            <option value="경기">경기</option>
+            <option value="인천">인천</option>
+            <option value="강원">강원</option>
+            <option value="세종">세종</option>
+            <option value="충남">충남</option>
+            <option value="충북">충북</option>
+            <option value="대구">대구</option>
+            <option value="전북">전북</option>
+            <option value="부산">부산</option>
+            <option value="울산">울산</option>
+            <option value="전남">전남</option>    
+      </select>
+        <br>
         <input type="submit" value="검색">
     </form>
   </section>
@@ -65,7 +82,7 @@
 <!-- Two -->
 <section id="two" class="spotlights">
   <section>
-    <a href="{{ url_for('generic') }}" class="image">
+    <a href="{{ url_for('mzman') }}" class="image">
         <img src="{{ url_for('static', filename='images/book.jpg') }}" alt="" data-position="top center" />
     </a>
       <div class="content">
@@ -80,7 +97,7 @@
                 자기 발전과 성공을 도모하는데 도움을 줍니다. 다양한 분야의 성공사례와 전문가의 인사이트를 담고 있어, 
                 MZ세대 남성들이 자신의 미래를 계획하고 비전을 실현하기 위한 지침서로서 많은 사랑을 받고 있습니다.</p>
               <ul class="actions">
-                  <li><a href="{{ url_for('generic') }}" class="button">Learn more</a></li>
+                  <li><a href="{{ url_for('mzman') }}" class="button">Learn more</a></li>
               </ul>
           </div>
       </div>
