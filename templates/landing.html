@@ -36,9 +36,6 @@
                 <li><a href="{{ url_for('landing') }}">Landing</a></li>
                 <li><a href="{{ url_for('generic') }}">Generic</a></li>
             </ul>
-            <ul class="actions stacked">
-                <li><a href="#" class="button primary fit">만든이: 유병주</a></li>
-            </ul>
         </nav>
 
         <!-- Banner -->
@@ -49,114 +46,53 @@
                     <img src="{{ url_for('static', filename='images/pic07.jpg') }}" alt="" />
                 </span>
                 <header class="major">
-                    <h1>순위(나중에 변경예정)</h1>
+                    <h1>도서 대출 순위</h1>
                 </header>
                 <div class="content">
-                    <p>여긴 간단한 설명 보이면 될 듯</p>
+                    <p>책을 읽기 어려우시다면 인기있는 책부터 도전해보시는게 어떨까요?</p>
                 </div>
             </div>
         </section>
 
         <!-- Main -->
-        <div id="main">
-            <!-- One -->
-            <section id="one">
-                <form method="POST" action="{{ url_for('landing') }}">
-                    <input type="text" name="search_query" placeholder="Enter your search query">
-                    <input type="submit" value="Search">
-                </form>
-                <ul>
-                    {% for item in data %}
-                    <li>
-                        <h3>{{ item.BOOK_TITLE_NM }}</h3>
-                        <p>글쓴이 : {{ item.AUTHR_NM }}</p>
-                        <p>서적소개내용:{{ item.BOOK_INTRCN_CN }}</p>
-                        <p>출판사: {{ item.PUBLISHER_NM }}</p>
-                        <img src="{{ item.BOOK_IMAGE_NM }}" alt="Book Image">
-                        <p>인기순위: {{ item.RANK_CO }}</p>
-                        <p>발행날: {{ item.PBLICTE_DE }}</p>
-                        <p>ANALS_TY_CD: {{ item.ANALS_TY_CD }}</p>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </section>
-        </div>
-        <!-- Two -->
+        
         <section id="two" class="spotlights">
-            <section>
-                <a href="{{ url_for('generic') }}" class="image">
-                    <img src="{{ url_for('static', filename='images/pic08.jpg') }}" alt=""
-                        data-position="center center" />
+            {% for section in sections %}
+              <section>
+                <a href="{{ section.url }}" class="image" style="display: flex; align-items: center; justify-content: center;">
+                  {% if section.image %}
+                    <img src="{{ section.image }}" alt="" data-position="center center" style="max-width: 250px; max-height: 500px;" />
+                  {% else %}
+                    <img src="default_image.jpg" alt="Default Image" data-position="center center" style="max-width: 250px; max-height: 500px;" />
+                  {% endif %}
                 </a>
                 <div class="content">
-                    <div class="inner">
-                        <header class="major">
-                            <h3>Orci maecenas</h3>
-                        </header>
-                        <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus
-                            condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna
-                            pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et
-                            sagittis tempus.</p>
-                        <ul class="actions">
-                            <li><a href="{{ url_for('generic') }}" class="button">Learn more</a></li>
-                        </ul>
-                    </div>
+                  <div class="inner">
+                    <header class="major">
+                      <h3>{{ section.rank or '-' }} 등  {{ section.title or 'No Title' }}</h3>
+                    </header>
+                    <p>작가: {{ section.authr or '-' }}  출판사: {{ section.publi or 'No Title' }}</p>
+                    <p>{{ section.description or 'No Description' }}</p>
+                    <ul class="actions">
+                      <li><a href="{{ section.url }}" class="button">자세히 보기</a></li>
+                    </ul>
+                  </div>
                 </div>
-            </section>
-            <section>
-                <a href="{{ url_for('generic') }}" class="image">
-                    <img src="{{ url_for('static', filename='images/pic09.jpg') }}" alt="" data-position="top center" />
-                </a>
-                <div class="content">
-                    <div class="inner">
-                        <header class="major">
-                            <h3>Rhoncus magna</h3>
-                        </header>
-                        <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus
-                            condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna
-                            pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et
-                            sagittis tempus.</p>
-                        <ul class="actions">
-                            <li><a href="{{ url_for('generic') }}" class="button">Learn more</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <section>
-                <a href="{{ url_for('generic') }}" class="image">
-                    <img src="{{ url_for('static', filename='images/pic10.jpg') }}" alt="" data-position="25% 25%" />
-                </a>
-                <div class="content">
-                    <div class="inner">
-                        <header class="major">
-                            <h3>Sed nunc ligula</h3>
-                        </header>
-                        <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus
-                            condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna
-                            pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et
-                            sagittis tempus.</p>
-                        <ul class="actions">
-                            <li><a href="{{ url_for('generic') }}" class="button">Learn more</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-        </section>
+              </section>
+            {% endfor %}
+          </section>
 
         <!-- Three -->
         <section id="three">
             <div class="inner">
                 <header class="major">
-                    <h2>Massa libero</h2>
+                    <h2>프로젝트 설명</h2>
                 </header>
-                <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna
-                    sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas
-                    laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat
-                    tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus amet pharetra et
-                    feugiat tempus.</p>
-                <ul class="actions">
-                    <li><a href="{{ url_for('generic') }}" class="button next">Get Started</a></li>
-                </ul>
+                <p>저희 프로젝트는 약 18만개의 인기대출 데이터를 분석하여 독자들에게 책을 소개하는 것을 목표로 합니다. 
+                이를 통해 독자들에게 최신 트렌드와 인기 도서를 알려주고, 개인적인 취향과 관심사에 맞는 도서를 추천합니다. 
+                이 프로젝트의 장점은 대량의 데이터를 기반으로 도서의 인기와 순위를 신뢰할 수 있게 분석하며, 개인화된 추천 시스템을 제공하여 
+                독자들에게 맞춤형 콘텐츠를 제공합니다. 또한, 다양한 장르와 주제를 다루기 때문에 독자들은 다양한 책을 탐색하고 
+                새로운 경험을 할 수 있습니다. 이를 통해 독서 문화를 활성화하고 독자들의 만족도를 높일 수 있습니다.</p>
             </div>
         </section>
 

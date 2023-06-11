@@ -331,5 +331,49 @@
 						$menu._hide();
 
 			});
+			$(document).ready(function() {
+				$('.dropbtn_click').click(function() {
+				  dropdown();
+				});
+			  
+				$('.fastfood').click(function() {
+				  showMenu(value);
+				});
+			  
+				function dropdown() {
+				  var v = $('.dropdown-content');
+				  var dropbtn = $('.dropbtn');
+				  v.toggleClass('show');
+				  dropbtn.css('borderColor', 'rgb(94, 94, 94)');
+				}
+			  
+				function showMenu(value) {
+				  var dropbtn_icon = $('.dropbtn_icon');
+				  var dropbtn_content = $('.dropbtn_content');
+				  var dropbtn_click = $('.dropbtn_click');
+				  var dropbtn = $('.dropbtn');
+			  
+				  dropbtn_icon.text('');
+				  dropbtn_content.text(value);
+				  dropbtn_content.css('color', '#252525');
+				  dropbtn.css('borderColor', '#3992a8');
+				}
+			  
+				$(window).click(function(e) {
+				  if (!$(e.target).hasClass('dropbtn_click')) {
+					var dropdowns = $('.dropdown-content');
+			  
+					var dropbtn_icon = $('.dropbtn_icon');
+					var dropbtn_content = $('.dropbtn_content');
+					var dropbtn_click = $('.dropbtn_click');
+					var dropbtn = $('.dropbtn');
+			  
+					dropdowns.each(function() {
+					  $(this).removeClass('show');
+					});
+				  }
+				});
+			  });
+			  
 
 })(jQuery);

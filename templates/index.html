@@ -7,10 +7,10 @@
 <section id="banner" class="major">
   <div class="inner">
     <header class="major">
-      <h1>DB_14조</h1>
+      <h1>DB_14조 책읽자</h1>
     </header>
     <div class="content">
-      <p>14조 DB발표를 위한 임시 템플릿</p>
+      <p>14조 도서 추천 시스템</p>
       <ul class="actions">
         <li><a href="#one" class="button next scrolly">Get Started</a></li>
       </ul>
@@ -22,42 +22,63 @@
 <div id="main">
   <!-- One -->
   <section id="one">
-      <form method="POST" action="{{ url_for('landing') }}">
-          <input type="text" name="search_query" placeholder="Enter your search query">
-          <input type="submit" value="Search">
-      </form>
-      <ul>
-          {% for item in data %}
-          <li>
-              <h3>{{ item.BOOK_TITLE_NM }}</h3>
-              <p>Author: {{ item.AUTHR_NM }}</p>
-              <p>{{ item.BOOK_INTRCN_CN }}</p>
-              <p>Publisher: {{ item.PUBLISHER_NM }}</p>
-              <img src="{{ item.BOOK_IMAGE_NM }}" alt="Book Image">
-              <p>Rank: {{ item.RANK_CO }}</p>
-              <p>발행날자: {{ item.PBLICTE_DE }}</p>
-              <p>ANALS_TY_CD: {{ item.ANALS_TY_CD }}</p>
-          </li>
-          {% endfor %}
-      </ul>
+    <div class="my-space"></div>
+    <form action="/landing" method="GET">
+        <label for="search_keyword">책 제목:</label>
+        <input type="text" id="search_keyword" name="search_keyword">
+        <br>
+        <label for="anals_pd_cd_nm">분석 기간:</label>
+        <select id="anals_pd_cd_nm" name="anals_pd_cd_nm">
+            <option value="">전체</option>
+            <option value="7일">7일</option>
+            <option value="30일">30일</option>
+            <option value="90일">90일</option>
+        </select>
+        <br>
+        <label for="age_flag_nm">연령 구분:</label>
+        <select id="age_flag_nm" name="age_flag_nm">
+            <option value="">전체</option>
+            <option value="영유아(0~5)">영유아(0~5)</option>
+            <option value="유아(6~7)">유아(6~7)</option>
+            <option value="초등(8~13)">초등(8~13)</option>
+            <option value="청소년(14~19)">청소년(14~19)</option>
+            <option value="20대">20대</option>
+            <option value="30대">30대</option>
+            <option value="40대">40대</option>
+            <option value="50대">50대</option>
+            <option value="60대 이상">60대 이상</option>           
+        </select>
+        <br>
+        <label for="sexdstn_flag_nm">성별 구분:</label>
+        <select id="sexdstn_flag_nm" name="sexdstn_flag_nm">
+            <option value="">전체</option>
+            <option value="남성">남성</option>
+            <option value="여성">여성</option>
+        </select>
+        <br>
+        <input type="submit" value="검색">
+    </form>
   </section>
+  <div class="my-space"></div>
 </div>
+
 <!-- Two -->
 <section id="two" class="spotlights">
   <section>
-      <a href="{{ url_for('generic') }}" class="image">
-          <img src="{{ url_for('static', filename='images/pic08.jpg') }}" alt=""
-              data-position="center center" />
-      </a>
+    <a href="{{ url_for('generic') }}" class="image">
+        <img src="{{ url_for('static', filename='images/book.jpg') }}" alt="" data-position="top center" />
+    </a>
       <div class="content">
           <div class="inner">
               <header class="major">
-                  <h3>Orci maecenas</h3>
+                  <h3>MZ세대 남성 인기도서</h3>
               </header>
-              <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus
-                  condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna
-                  pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et
-                  sagittis tempus.</p>
+              <p>MZ세대 남성 인기도서: 열정과 성장을 위한 독서 필수!</p>
+              <p>
+                MZ세대 남성들을 위한 인기도서는 자기계발, 비즈니스, 리더십 등 다양한 주제로 구성되어 있습니다. 
+                이 책들은 독자들에게 열정과 성장을 위한 영감을 전달하며, 
+                자기 발전과 성공을 도모하는데 도움을 줍니다. 다양한 분야의 성공사례와 전문가의 인사이트를 담고 있어, 
+                MZ세대 남성들이 자신의 미래를 계획하고 비전을 실현하기 위한 지침서로서 많은 사랑을 받고 있습니다.</p>
               <ul class="actions">
                   <li><a href="{{ url_for('generic') }}" class="button">Learn more</a></li>
               </ul>
@@ -66,17 +87,16 @@
   </section>
   <section>
       <a href="{{ url_for('generic') }}" class="image">
-          <img src="{{ url_for('static', filename='images/pic09.jpg') }}" alt="" data-position="top center" />
+          <img src="{{ url_for('static', filename='images/book2.jpg') }}" alt="" data-position="top center" />
       </a>
       <div class="content">
           <div class="inner">
               <header class="major">
-                  <h3>Rhoncus magna</h3>
+                  <h3>수도권 여성 인기도서</h3>
               </header>
-              <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus
-                  condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna
-                  pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et
-                  sagittis tempus.</p>
+              <p>수도권 여성 인기도서는 수도권 지역의 여성 독자들에게 인기를 끌고 있는 도서들을 말합니다. 
+                이 도서들은 여성들의 관심사와 가치관을 반영하며, 로맨스, 자기계발, 여성의 이야기 등 다양한 주제로 구성되어 있습니다. 
+                이들은 여성 독자들에게 공감과 위로를 제공하며, 삶의 다양한 측면을 탐구하는데 도움을 주는 도서들입니다.</p>
               <ul class="actions">
                   <li><a href="{{ url_for('generic') }}" class="button">Learn more</a></li>
               </ul>
@@ -108,16 +128,13 @@
 <section id="three">
   <div class="inner">
       <header class="major">
-          <h2>Massa libero</h2>
+          <h2>프로젝트 설명</h2>
       </header>
-      <p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna
-          sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas
-          laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat
-          tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus amet pharetra et
-          feugiat tempus.</p>
-      <ul class="actions">
-          <li><a href="{{ url_for('generic') }}" class="button next">Get Started</a></li>
-      </ul>
+      <p>저희 프로젝트는 약 18만개의 인기대출 데이터를 분석하여 독자들에게 책을 소개하는 것을 목표로 합니다. 
+        이를 통해 독자들에게 최신 트렌드와 인기 도서를 알려주고, 개인적인 취향과 관심사에 맞는 도서를 추천합니다. 
+        이 프로젝트의 장점은 대량의 데이터를 기반으로 도서의 인기와 순위를 신뢰할 수 있게 분석하며, 개인화된 추천 시스템을 제공하여 
+        독자들에게 맞춤형 콘텐츠를 제공합니다. 또한, 다양한 장르와 주제를 다루기 때문에 독자들은 다양한 책을 탐색하고 
+        새로운 경험을 할 수 있습니다. 이를 통해 독서 문화를 활성화하고 독자들의 만족도를 높일 수 있습니다.</p>
   </div>
 </section>
 {% endblock %}

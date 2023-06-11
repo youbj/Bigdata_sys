@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 from pymongo import MongoClient
 
 app = Flask(__name__)
@@ -9,91 +9,69 @@ db = client['BookDB']
 collection = db['Popular_borrow']
    
 @app.route('/', methods=['GET', 'POST'])
-def index():
-    print('여기맞아요')
-    if request.method == 'POST':
-        print('여기에요')
-        search_query = request.form['search_query']
-        query = {
-            "AGE_FLAG_NM": "영유아(0~5)",        
-            "BOOK_TITLE_NM": {"$regex": search_query, "$options": "i"}
-        }
-        projection = {
-            "BOOK_TITLE_NM": 1,
-            "AUTHR_NM": 1,
-            "BOOK_INTRCN_CN": 1,
-            "PUBLISHER_NM": 1,
-            "BOOK_IMAGE_NM": 1,
-            "RANK_CO": 1,
-            "PBLICTE_DE": 1,
-            "ANALS_TY_CD": 1
-        }
-        print('여기까지오나확인')
-        data = list(collection.find(query, projection).sort("RANK_CO", 1).limit(20))
-        print('1')
-        return render_template('landing.html', data=data, search_query=search_query)
-    else:
-        print('2')  
-        query = {
-            "AGE_FLAG_NM": "영유아(0~5)",
-            "ANALS_TY_CD": 2,
-            "ANALS_PD_CD_NM": "30일"
-        }
-        projection = {
-            "BOOK_TITLE_NM": 1,
-            "AUTHR_NM": 1,
-            "BOOK_INTRCN_CN": 1,
-            "PUBLISHER_NM": 1,
-            "BOOK_IMAGE_NM": 1,
-            "RANK_CO": 1,
-            "PBLICTE_DE": 1,
-            "ANALS_TY_CD": 1
-        }
-        data = list(collection.find(query, projection).sort("RANK_CO", 1).limit(20))
-        return render_template('index.html',data=data)
+def index():   
+    return render_template('index.html')
 
 @app.route('/landing', methods=['GET', 'POST'])
 def landing():
-    print('여기맞아요')
-    if request.method == 'POST':
-        print('여기에요')
-        search_query = request.form['search_query']
-        query = {
-            "AGE_FLAG_NM": "영유아(0~5)",        
-            "BOOK_TITLE_NM": {"$regex": search_query, "$options": "i"}
-        }
-        projection = {
-            "BOOK_TITLE_NM": 1,
-            "AUTHR_NM": 1,
-            "BOOK_INTRCN_CN": 1,
-            "PUBLISHER_NM": 1,
-            "BOOK_IMAGE_NM": 1,
-            "RANK_CO": 1,
-            "PBLICTE_DE": 1,
-            "ANALS_TY_CD": 1
-        }
+    search_keyword = request.args.get('search_keyword', '')
+    anals_pd_cd_nm = request.args.get('anals_pd_cd_nm', '')
+    age_flag_nm = request.args.get('age_flag_nm', '')
+    sexdstn_flag_nm = request.args.get('sexdstn_flag_nm', '')
 
-        print('여기까지오나확인')
-        data = list(collection.find(query, projection).sort("RANK_CO", 1).limit(20))
-        return render_template('landing.html', data=data, search_query=search_query)
-    else:
-        query = {
-            "AGE_FLAG_NM": "영유아(0~5)",
-            "ANALS_TY_CD": 2,
-            "ANALS_PD_CD_NM": "30일"
+    query = {
+        "BOOK_TITLE_NM": {"$regex": search_keyword, "$options": "i"}
+    }
+
+    if anals_pd_cd_nm:
+        query["ANALS_PD_CD_NM"] = anals_pd_cd_nm
+
+    if age_flag_nm:
+        query["AGE_FLAG_NM"] = age_flag_nm
+
+    if sexdstn_flag_nm:
+        query["SEXDSTN_FLAG_NM"] = sexdstn_flag_nm
+
+    sort_key = None  # 초기값 설정
+
+    # 하나의 레이블만 선택되었을 때 정렬을 수행할 필드 선택
+    if anals_pd_cd_nm and not (age_flag_nm or sexdstn_flag_nm):
+        sort_key = "ANALS_PD_CD_NM"
+    elif age_flag_nm and not (anals_pd_cd_nm or sexdstn_flag_nm):
+        sort_key = "AGE_FLAG_NM"
+    elif sexdstn_flag_nm and not (anals_pd_cd_nm or age_flag_nm):
+        sort_key = "SEXDSTN_FLAG_NM"
+
+    projection = {
+        "BOOK_TITLE_NM": 1,
+        "AUTHR_NM": 1,
+        "BOOK_INTRCN_CN": 1,
+        "PUBLISHER_NM": 1,
+        "BOOK_IMAGE_NM": 1,
+        "RANK_CO": 1,
+    }
+    data = list(collection.find(query, projection).limit(10))
+
+    # sections 리스트 동적 생성
+    sections = []
+    for item in data:
+        section = {
+            'url': 'URL_1',
+            'image': item.get('BOOK_IMAGE_NM', 'default_image.jpg'),
+            'title': item.get('BOOK_TITLE_NM', 'No Title'),
+            'description': item.get('BOOK_INTRCN_CN', 'No Description'),
+            'rank' : item.get('RANK_CO','No RANK'),
+            'authr' : item.get('AUTHR_NM','No RANK'),
+            'publi' : item.get('PUBLISHER_NM','No RANK')
         }
-        projection = {
-            "BOOK_TITLE_NM": 1,
-            "AUTHR_NM": 1,
-            "BOOK_INTRCN_CN": 1,
-            "PUBLISHER_NM": 1,
-            "BOOK_IMAGE_NM": 1,
-            "RANK_CO": 1,
-            "PBLICTE_DE": 1,
-            "ANALS_TY_CD": 1
-        }
-        data = list(collection.find(query, projection).sort("RANK_CO", 1).limit(20))
-        return render_template('landing.html',data=data)
+        sections.append(section)
+
+    # 정렬 수행
+    if sort_key:
+        sections.sort(key=lambda x: x.get(sort_key) if x.get(sort_key) is not None else '')
+
+    return render_template('landing.html', sections=sections)
+
 
 
 @app.route('/generic')
