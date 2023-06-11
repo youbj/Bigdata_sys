@@ -1,5 +1,3 @@
-<!-- mzman.html -->
-
 <!DOCTYPE HTML>
 <!--
     Forty by HTML5 UP
@@ -8,7 +6,7 @@
 -->
 <html>
     <head>
-        <title>mzman</title>
+        <title>상세페이지</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
@@ -17,85 +15,79 @@
     <body class="is-preload">
 
         <!-- Wrapper -->
-        <div id="wrapper">
+            <div id="wrapper">
 
-            <!-- Header -->
-            <header id="header">
-                <a href="{{ url_for('index') }}" class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a>
-                <nav>
-                    <a href="#menu">Menu</a>
-                </nav>
-            </header>
+                <!-- Header -->
+                    <header id="header">
+                        <a href="{{ url_for('index') }}" class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a>
+                        <nav>
+                            <a href="#menu">Menu</a>
+                        </nav>
+                    </header>
 
-            <!-- Menu -->
-            <nav id="menu">
-                <ul class="links">
-                    <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="{{ url_for('landing') }}">Landing</a></li>
-                    <li><a href="{{ url_for('generic') }}">Generic</a></li>
-                    <li><a href="{{ url_for('mzman') }}">mzman</a></li>
-                </ul>
-                <ul class="actions stacked">
-                    <li><a href="#" class="button primary fit">Team: 14조</a></li>
-                </ul>
-            </nav>
+                <!-- Menu -->
+                    <nav id="menu">
+                        <ul class="links">
+                            <li><a href="{{ url_for('index') }}">Home</a></li>
+                            <li><a href="{{ url_for('landing') }}">Landing</a></li>
+                            <li><a href="{{ url_for('generic') }}">Generic</a></li>
+                        </ul>
+                        <ul class="actions stacked">
+                            <li><a href="#" class="button primary fit">Team: 14조</a></li>
+                        </ul>
+                    </nav>
 
-            <!-- Main -->
-            <div id="main" class="alt">
+                <!-- Main -->
+                    <div id="main" class="alt">
 
-                <section id="one">
-                    <div class="inner">
-                      <header class="major">
-                        <h1>{{ data['BOOK_TITLE_NM'] }}</h1>
-                      </header>
-                      <div class="image-container">
-                        <img src="{{ data['BOOK_IMAGE_NM'] }}" alt="Book Image" height="300px">
-                      </div>
-                      <div class="book-details">
-                        <h3>{{ data['AUTHR_NM'] }}</h3>
-                        <p>요약: {{ data['BOOK_INTRCN_CN'] }}</p>
-                        <p>베스트 셀러 순위: 
-                          {% if data['RANK_CO']|string is iterable and not data['RANK_CO'] is string %}
-                            {% set rank_co = data['RANK_CO']|string|split(',') %}
-                            {% for rank in rank_co[:10] %}
-                              {{ rank }}{% if not loop.last %}, {% endif %}
-                            {% endfor %}
-                          {% else %}
-                            {{ data['RANK_CO'] }}
-                          {% endif %}
-                        </p>
-                      </div>
+                        <!-- One -->
+                            <section id="one">
+                                <div class="inner">
+                                    <header class="major">
+                                        <h1>{{ data['BOOK_TITLE_NM'] }}</h1>
+                                    </header>
+                                    <div class="image-container">
+                                        <img src="{{ data['BOOK_IMAGE_NM'] }}" alt="Book Image" height=300px>
+                                    </div>
+                                    <div class="book-details">
+                                        <h3>{{ data['AUTHR_NM'] }}</h3>
+                                        <p>요약:{{ data['BOOK_INTRCN_CN'] }}</p>
+                                        <p>출판사: {{ data['PUBLISHER_NM'] }}</p>
+
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </section>
+
                     </div>
-                  </section>
-                
-                
-                  
+
+                <!-- Footer -->
+                    <footer id="footer">
+                        <div class="inner">
+                            <ul class="icons">
+                                <li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+                                <li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+                                <li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+                                <li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+                                <li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+                            </ul>
+                            <ul class="copyright">
+                                <li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+                            </ul>
+                        </div>
+                    </footer>
+
             </div>
 
-            <!-- Footer -->
-            <footer id="footer">
-                <div class="inner">
-                    <ul class="icons">
-                        <li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-                        <li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-                        <li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-                        <li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-                        <li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-                    </ul>
-                    <p>&copy; Untitled. All rights reserved.</p>
-                </div>
-            </footer>
-
-        </div>
-
         <!-- Scripts -->
-        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/jquery.scrollex.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/jquery.scrolly.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/browser.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/breakpoints.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/util.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/jquery.scrolly.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/jquery.scrollex.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/browser.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/breakpoints.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/util.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
     </body>
 </html>

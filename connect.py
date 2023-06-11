@@ -89,8 +89,8 @@ def generic():
 
 @app.route('/mzman')
 def mzman():
-    data = collection.find_one({})
-    return render_template('mzman.html',data=data)
+    data = collection.find({"AGE_FLAG_NM": "20대"}).limit(10)
+    return render_template('mzman.html', data=data)
 
 if __name__ == '__main__':
     app.run()
