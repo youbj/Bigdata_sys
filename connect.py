@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for
 from pymongo import MongoClient
+import time
 
 app = Flask(__name__)
 app.jinja_env.auto_reload = True  # 템플릿 자동로드 활성화 (개발 환경에서만 사용)
@@ -109,10 +110,10 @@ def generic():
     pipeline = [
         { '$match' : { 'ANALS_TY_CD_NM' : "지역별", 'AREA_NM': "충북", 'ANALS_PD_CD': "p2"}},
         { '$sort' : { 'RANK_CO' : 1 } },
-        { '$limit' : 100 },
+        { '$limit' : 10 },
         { '$project' : {'_id': 0, 'RANK_CO' : 1, 'BOOK_TITLE_NM' : 1, 'PUBLISHER_NM' : 1, 'BOOK_INTRCN_CN' : 1, 'BOOK_IMAGE_NM' : 1}}
     ]
-    result = list(collection.aggregate(pipeline).sort("RANK_CO", 1).limit(10))
+    result = list(collection.aggregate(pipeline))
     
     return render_template('generic.html', data=result)
 
@@ -202,20 +203,48 @@ def mzwoman():
 
     return render_template('generic.html', data=unique_result)
 
+
 @app.route('/indexing', methods=['GET'])
 def indexing():
-    # Create a compound index
-    collection.create_index([('ANALS_TY_CD', 1), ('ANALS_TY_CD_NM', 1), ('ANALS_PD_CD_NM', 1), ('ANALS_PD_CD', 1)])
+    # Create an index
+    collection.create_index([('ANALS_TY_CD', 1), ('ANALS_TY_CD_NM', 1), ('ANALS_PD_CD_NM', 1), ('ANALS_PD_CD', 1)], name="index_anals")
+
+    query = {
+        'ANALS_TY_CD': 3,
+        'ANALS_TY_CD_NM': '지역별',
+        'ANALS_PD_CD_NM': '30일',
+        'ANALS_PD_CD': 'p2'
+    }
 
     pipeline = [
-        { '$match': { 'ANALS_TY_CD_NM': "지역별", 'AREA_NM': "충북", 'ANALS_PD_CD': "p2" } },
+        { '$match': query },
         { '$sort': { 'RANK_CO': 1 } },
         { '$limit': 100 },
         { '$project': { '_id': 0, 'ANALS_TY_CD': 1, 'ANALS_TY_CD_NM': 1, 'ANALS_PD_CD_NM': 1, 'ANALS_PD_CD': 1, 'RANK_CO': 1, 'BOOK_TITLE_NM': 1, 'PUBLISHER_NM': 1, 'BOOK_INTRCN_CN': 1, 'BOOK_IMAGE_NM': 1 } }
     ]
-    result = list(collection.aggregate(pipeline).sort("RANK_CO", 1).limit(10))
 
-    return render_template('generic.html', data=result)
+    # Using index
+    start_time_indexed = time.time()
+    indexed_result = list(collection.aggregate(pipeline))
+    end_time_indexed = time.time()
+
+    # Remove duplicates using a set
+    unique_indexed_result = list({item['BOOK_TITLE_NM']: item for item in indexed_result}.values())
+
+    # Without using index
+    start_time_non_indexed = time.time()
+    non_indexed_result = list(collection.find(query).sort("RANK_CO", 1).limit(100))
+    end_time_non_indexed = time.time()
+
+    # Remove duplicates using a set
+    unique_non_indexed_result = list({item['BOOK_TITLE_NM']: item for item in non_indexed_result}.values())
+
+    # Calculate indexing time
+    indexing_time = (end_time_indexed - start_time_indexed)*100
+    non_indexing_time = (end_time_non_indexed - start_time_non_indexed)*100
+
+    return render_template('indexspeed.html', indexed_data=unique_indexed_result, non_indexed_data=unique_non_indexed_result, indexing_time=indexing_time, non_indexing_time=non_indexing_time)
+
 
 
 if __name__ == '__main__':
